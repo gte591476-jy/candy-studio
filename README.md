@@ -1,5 +1,7 @@
 # Candy Studio
 
+[简体中文说明](./README.zh-CN.md)
+
 Candy Studio is an open-source AI image and video generation website built for independent operators.
 It is designed for teams or individuals who source generation capacity from upstream relay APIs and redistribute that capability to end users through their own branded website.
 
