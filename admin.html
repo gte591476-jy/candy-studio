@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Candy Studio 管理后台</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;min-height:100vh}
+    .card{background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+    .stat-card{transition:all .2s}.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.08)}
+    .btn{padding:8px 16px;border-radius:10px;font-size:13px;font-weight:600;transition:all .2s;cursor:pointer;border:none}
+    .btn-primary{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}.btn-primary:hover{box-shadow:0 4px 12px rgba(34,197,94,.3)}
+    .btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+    .btn-outline{background:#fff;border:1px solid #e2e8f0;color:#666}.btn-outline:hover{background:#f8fafc}
+    .tab-active{color:#16a34a;border-bottom:2px solid #22c55e;font-weight:600}
+    .inp{width:100%;border:1px solid #e2e8f0;border-radius:12px;padding:10px 14px;font-size:13px;outline:none;transition:all .2s}
+    .inp:focus{border-color:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+    .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.3);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:center;justify-content:center}
+    .modal-box{background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.15);max-width:500px;width:95%;max-height:90vh;overflow-y:auto}
+  </style>
+</head>
+<body>
+<!-- Login -->
+<div id="login-page" class="min-h-screen flex items-center justify-center">
+  <div class="card p-8 w-[400px]">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+      </div>
+      <div><div class="font-bold text-lg">Candy Studio</div><div class="text-xs text-gray-400">管理后台</div></div>
+    </div>
+    <div class="space-y-3">
+      <input id="login-email" type="email" class="inp" placeholder="管理员邮箱" value="admin@candy.com"/>
+      <input id="login-pass" type="password" class="inp" placeholder="密码"/>
+      <button onclick="doLogin()" class="btn btn-primary w-full py-3">登录</button>
+      <p id="login-error" class="text-xs text-red-500 text-center hidden"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Admin -->
+<div id="admin-page" class="hidden">
+  <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-10">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
+      <span class="font-bold text-gray-900 text-sm">管理后台</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span id="admin-name" class="text-xs text-gray-400"></span>
+      <a href="/" class="text-xs text-gray-400 hover:text-green-600">前台</a>
+      <button onclick="doLogout()" class="text-xs text-red-400 hover:text-red-600">退出</button>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-6 py-5">
+    <!-- Tabs -->
+    <div class="flex gap-4 border-b border-gray-200 mb-5 overflow-x-auto text-sm">
+      <button onclick="switchTab('overview')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="overview">概况</button>
+      <button onclick="switchTab('users')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="users">用户管理</button>
+      <button onclick="switchTab('calls')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="calls">调用记录</button>
+      <button onclick="switchTab('recharge')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="recharge">手动充值</button>
+      <button onclick="switchTab('membership')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="membership">会员设置</button>
+      <button onclick="switchTab('modelprices')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="modelprices">模型定价</button>
+      <button onclick="switchTab('apikeys')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="apikeys">API Key</button>
+      <button onclick="switchTab('pay')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="pay">支付配置</button>
+      <button onclick="switchTab('orders')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="orders">充值订单</button>
+      <button onclick="switchTab('announce')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="announce">公告管理</button>
+      <button onclick="switchTab('site')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="site">网站设置</button>
+      <button onclick="switchTab('system')" class="tab-btn pb-2 text-gray-500 hover:text-green-600 whitespace-nowrap" data-tab="system">系统设置</button>
+    </div>
+
+    <!-- Overview -->
+    <div id="tab-overview" class="tab-content">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5" id="stats-grid"></div>
+      <!-- Row 1: 7-day trend + Model doughnut -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="card p-4 md:col-span-2"><h4 class="text-xs font-bold text-gray-400 mb-3">📈 最近7天调用趋势</h4><canvas id="chart-daily" height="120"></canvas></div>
+        <div class="card p-4"><h4 class="text-xs font-bold text-gray-400 mb-3">🍩 模型调用占比</h4><canvas id="chart-model" height="200"></canvas></div>
+      </div>
+      <!-- Row 2: Task type pie + Daily model stacked bar -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="card p-4"><h4 class="text-xs font-bold text-gray-400 mb-3">🎯 任务类型分布</h4><canvas id="chart-tasktype" height="200"></canvas></div>
+        <div class="card p-4 md:col-span-2"><h4 class="text-xs font-bold text-gray-400 mb-3">📊 每日模型调用明细（近7天）</h4><canvas id="chart-daily-models" height="140"></canvas></div>
+      </div>
+      <!-- Row 3: 30-day trend + Hourly distribution -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="card p-4"><h4 class="text-xs font-bold text-gray-400 mb-3">📉 API 调用趋势（近30天）</h4><canvas id="chart-30day" height="140"></canvas></div>
+        <div class="card p-4"><h4 class="text-xs font-bold text-gray-400 mb-3">🕐 每小时调用分布（高峰期分析）</h4><canvas id="chart-hourly" height="140"></canvas></div>
+      </div>
+      <!-- Row 4: Top user model ranking -->
+      <div class="grid grid-cols-1 gap-4 mb-4">
+        <div class="card p-4"><h4 class="text-xs font-bold text-gray-400 mb-3">👥 用户模型调用排名（Top用户 x Top模型）</h4><canvas id="chart-user-models" height="140"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Users -->
+    <div id="tab-users" class="tab-content hidden">
+      <div class="card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold">用户管理</h3>
+          <div class="flex gap-2">
+            <input id="user-search" type="text" class="inp w-48 !py-2 text-xs" placeholder="搜索邮箱/昵称..." oninput="loadUsers()"/>
+            <button onclick="showCreateUser()" class="btn btn-primary text-xs">+ 新增用户</button>
+          </div>
+        </div>
+        <div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-left text-xs text-gray-400 border-b">
+          <th class="pb-2 pr-3">ID</th><th class="pb-2 pr-3">邮箱</th><th class="pb-2 pr-3">昵称</th><th class="pb-2 pr-3">余额</th><th class="pb-2 pr-3">角色</th><th class="pb-2 pr-3">会员</th><th class="pb-2 pr-3">会员到期</th><th class="pb-2 pr-3">注册时间</th><th class="pb-2">操作</th>
+        </tr></thead><tbody id="users-table"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- Calls -->
+    <div id="tab-calls" class="tab-content hidden">
+      <div class="card p-5"><h3 class="font-bold mb-4">调用记录</h3>
+        <div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-left text-xs text-gray-400 border-b">
+          <th class="pb-2 pr-3">ID</th><th class="pb-2 pr-3">用户</th><th class="pb-2 pr-3">模型</th><th class="pb-2 pr-3">提示词</th><th class="pb-2 pr-3">消耗</th><th class="pb-2 pr-3">状态</th><th class="pb-2">时间</th>
+        </tr></thead><tbody id="calls-table"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- Recharge -->
+    <div id="tab-recharge" class="tab-content hidden">
+      <div class="card p-6 max-w-lg">
+        <h3 class="font-bold mb-4">手动充值 / 扣减</h3>
+        <div class="space-y-3">
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">用户 ID</label><input id="rc-user-id" type="number" class="inp" placeholder="输入用户ID"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">算力 <span class="text-gray-300">(正数充值，负数扣减)</span></label><input id="rc-amount" type="number" step="0.01" class="inp" placeholder="100 或 -50"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">备注</label><input id="rc-desc" type="text" class="inp" placeholder="充值原因"/></div>
+          <button onclick="doRecharge()" class="btn btn-primary w-full">执行</button>
+          <p id="rc-result" class="text-sm text-center hidden"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Keys -->
+    <div id="tab-apikeys" class="tab-content hidden">
+      <div class="card p-6 max-w-2xl">
+        <h3 class="font-bold mb-1">API Key 管理</h3><p class="text-xs text-gray-400 mb-4">多 Key 轮换，后端代理所有请求</p>
+        <div id="apikey-list" class="space-y-2 mb-4"></div>
+        <div class="space-y-2 mb-4">
+          <div class="flex gap-2">
+            <input id="new-apikey" type="text" class="inp flex-1" placeholder="API Key (sk-xxx)"/>
+            <input id="new-apikey-name" type="text" class="inp w-32" placeholder="备注"/>
+          </div>
+          <div class="flex gap-2">
+            <input id="new-apikey-url" type="text" class="inp flex-1" placeholder="Base URL (可选，留空则使用下方全局配置)"/>
+            <button onclick="addApiKey()" class="btn btn-primary px-8">添加</button>
+          </div>
+        </div>
+        <div class="flex gap-2"><input id="api-base-url" type="text" class="inp flex-1" placeholder="全局 Base URL (例如: https://ai.comfly.chat)"/><button onclick="saveBaseUrl()" class="btn btn-primary">保存全局</button></div>
+        <p id="apikey-result" class="text-sm text-center mt-2 hidden"></p>
+      </div>
+    </div>
+
+    <!-- Memberships -->
+    <div id="tab-membership" class="tab-content hidden">
+      <div class="card p-6 max-w-4xl">
+        <h3 class="font-bold mb-1">会员配置</h3>
+        <p class="text-xs text-gray-400 mb-4">设置会员组、充值金额、会员时长及模型算力消耗折率（如1.0为没有折扣，0.8为8折，1.5为1.5倍扣费）</p>
+        
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="text-xs text-gray-400 border-b">
+                <th class="pb-2 pr-2">ID(字母)</th>
+                <th class="pb-2 pr-2">名称</th>
+                <th class="pb-2 pr-2">价格(元)</th>
+                <th class="pb-2 pr-2">赠送算力</th>
+                <th class="pb-2 pr-2">时长(天)</th>
+                <th class="pb-2 pr-2">费率乘数</th>
+                <th class="pb-2">操作</th>
+              </tr>
+            </thead>
+            <tbody id="membership-list">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+          <p id="membership-empty" class="text-xs text-gray-400 mt-2 hidden">暂无会员配置</p>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg flex gap-3 flex-wrap items-end border border-gray-100">
+          <div class="flex-1 min-w-[120px]">
+            <label class="block text-[10px] text-gray-500 mb-1">标识 ID (如: trial, VIP)</label>
+            <input id="new-mem-id" type="text" class="inp py-1.5" placeholder="标识">
+          </div>
+          <div class="flex-1 min-w-[120px]">
+            <label class="block text-[10px] text-gray-500 mb-1">名称 (如: 年度会员)</label>
+            <input id="new-mem-name" type="text" class="inp py-1.5" placeholder="名称">
+          </div>
+          <div class="w-24">
+            <label class="block text-[10px] text-gray-500 mb-1">价格(￥)</label>
+            <input id="new-mem-price" type="number" step="0.01" class="inp py-1.5" placeholder="99.00">
+          </div>
+          <div class="w-24">
+            <label class="block text-[10px] text-gray-500 mb-1">赠送算力</label>
+            <input id="new-mem-points" type="number" step="0.01" class="inp py-1.5" placeholder="1000">
+          </div>
+          <div class="w-24">
+            <label class="block text-[10px] text-gray-500 mb-1">有效期(天)</label>
+            <input id="new-mem-duration" type="number" class="inp py-1.5" placeholder="365">
+          </div>
+          <div class="w-24">
+            <label class="block text-[10px] text-gray-500 mb-1">模型扣费倍率</label>
+            <input id="new-mem-discount" type="number" step="0.01" class="inp py-1.5" placeholder="1.2">
+          </div>
+          <button onclick="CA.addMembership()" class="btn btn-primary h-[34px] px-6">添加</button>
+        </div>
+        <p id="membership-result" class="text-sm text-center mt-3 hidden"></p>
+      </div>
+    </div>
+
+    <!-- Model Prices -->
+    <div id="tab-modelprices" class="tab-content hidden">
+      <div class="card p-6 max-w-4xl">
+        <h3 class="font-bold mb-1">模型定价</h3>
+        <p class="text-xs text-gray-400 mb-4">修改基础模型算力扣费，保存后实时生效。会员折扣将在此基础扣费上进行计算。</p>
+        
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm text-left">
+            <thead>
+              <tr class="text-xs text-gray-400 border-b">
+                <th class="pb-2 pr-2">模型ID</th>
+                <th class="pb-2 pr-2">模型名称</th>
+                <th class="pb-2 pr-2 w-32">基础算力价格</th>
+              </tr>
+            </thead>
+            <tbody id="modelprices-list">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <button onclick="CA.saveModelPrices()" class="btn btn-primary px-8">保存所有模型定价</button>
+        <p id="modelprices-result" class="text-sm text-center mt-3 hidden"></p>
+      </div>
+    </div>
+
+    <!-- Pay Config -->
+    <div id="tab-pay" class="tab-content hidden">
+      <div class="card p-6 max-w-2xl">
+        <h3 class="font-bold mb-1">虎皮椒微信支付</h3><p class="text-xs text-gray-400 mb-4"><a href="https://www.xunhupay.com" target="_blank" class="text-blue-500 hover:underline">注册虎皮椒</a></p>
+        <div class="space-y-3">
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">APPID *</label><input id="xunhu-appid" class="inp"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">APPSECRET *</label><input id="xunhu-appsecret" type="password" class="inp"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">回调地址</label><input id="xunhu-notify-url" class="inp" placeholder="https://域名/api/pay/notify"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">API地址</label><select id="xunhu-api-url" class="inp"><option value="https://api.xunhupay.com/payment/do.html">正式平台</option><option value="https://api.dpweixin.com/payment/do.html">备用平台</option></select></div>
+          <button onclick="savePayConfig()" class="btn btn-primary w-full">保存</button>
+          <p id="pay-result" class="text-sm text-center hidden"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders -->
+    <div id="tab-orders" class="tab-content hidden">
+      <div class="card p-5"><h3 class="font-bold mb-4">充值订单</h3>
+        <div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-left text-xs text-gray-400 border-b">
+          <th class="pb-2 pr-3">订单号</th><th class="pb-2 pr-3">用户</th><th class="pb-2 pr-3">算力</th><th class="pb-2 pr-3">金额</th><th class="pb-2 pr-3">状态</th><th class="pb-2 pr-3">交易号</th><th class="pb-2">时间</th>
+        </tr></thead><tbody id="orders-table"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- Announcement -->
+    <div id="tab-announce" class="tab-content hidden">
+      <div class="card p-6 max-w-2xl">
+        <h3 class="font-bold mb-4">公告管理</h3>
+        <div class="space-y-3">
+          <label class="flex items-center gap-2 cursor-pointer"><input id="ann-enabled" type="checkbox" class="w-4 h-4 rounded text-green-500"/><span class="text-sm">启用公告弹窗</span></label>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">公告标题</label><input id="ann-title" class="inp" placeholder="系统公告"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">公告内容</label><textarea id="ann-content" rows="6" class="inp resize-none" placeholder="公告正文..."></textarea></div>
+          <button onclick="saveAnnouncement()" class="btn btn-primary w-full">保存公告</button>
+          <p id="ann-result" class="text-sm text-center hidden"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Site Config -->
+    <div id="tab-site" class="tab-content hidden">
+      <div class="card p-6 max-w-2xl">
+        <h3 class="font-bold mb-4">网站设置</h3>
+        <div class="space-y-3">
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">网站名称</label><input id="site-name" class="inp" placeholder="Candy Studio"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">副标题</label><input id="site-subtitle" class="inp" placeholder="AI Creative Suite"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">Logo URL</label><input id="site-logo" class="inp" placeholder="https://..."/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">SEO 标题</label><input id="site-seo-title" class="inp" placeholder="网页标题"/></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">SEO 描述</label><textarea id="site-seo-desc" rows="2" class="inp resize-none" placeholder="网站描述"></textarea></div>
+          <div><label class="block text-xs font-semibold text-gray-500 mb-1">SEO 关键词</label><input id="site-seo-keywords" class="inp" placeholder="AI,图片生成,绘图"/></div>
+          <button onclick="saveSiteConfig()" class="btn btn-primary w-full">保存</button>
+          <p id="site-result" class="text-sm text-center hidden"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Settings -->
+    <div id="tab-system" class="tab-content hidden">
+      <div class="card p-6 max-w-lg">
+        <h3 class="font-bold mb-4">系统设置</h3>
+        <div class="space-y-4">
+          <div class="border-b pb-4"><h4 class="text-sm font-semibold mb-3">修改管理员密码</h4>
+            <div class="space-y-2">
+              <input id="sys-old-pass" type="password" class="inp" placeholder="当前密码"/>
+              <input id="sys-new-pass" type="password" class="inp" placeholder="新密码 (至少6位)"/>
+              <button onclick="changePassword()" class="btn btn-primary w-full">修改密码</button>
+            </div>
+          </div>
+          <p id="sys-result" class="text-sm text-center hidden"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- User Edit Modal -->
+<div id="user-modal" class="modal-bg hidden" onclick="if(event.target===this)closeUserModal()">
+  <div class="modal-box p-6">
+    <div class="flex justify-between items-center mb-4"><h3 id="modal-title" class="font-bold">编辑用户</h3><button onclick="closeUserModal()" class="text-gray-400 hover:text-gray-600">&times;</button></div>
+    <div class="space-y-3">
+      <input id="modal-id" type="hidden"/>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">邮箱</label><input id="modal-email" class="inp"/></div>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">昵称</label><input id="modal-nickname" class="inp"/></div>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">角色</label><select id="modal-role" class="inp"><option value="user">普通用户</option><option value="admin">管理员</option></select></div>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">会员等级</label><select id="modal-membership-tier" class="inp"><option value="">无会员</option></select></div>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">会员到期时间</label><input id="modal-membership-expire" type="datetime-local" class="inp"/></div>
+      <div><label class="block text-xs font-semibold text-gray-500 mb-1">重置密码 <span class="text-gray-300">(留空不修改)</span></label><input id="modal-password" type="password" class="inp" placeholder="新密码"/></div>
+      <div class="flex gap-2"><button onclick="saveUser()" class="btn btn-primary flex-1">保存</button><button onclick="closeUserModal()" class="btn btn-outline flex-1">取消</button></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/modules/config.js"></script>
+<script src="js/admin/api.js"></script>
+<script src="js/admin/stats.js"></script>
+<script src="js/admin/users.js"></script>
+<script src="js/admin/calls.js"></script>
+<script src="js/admin/config.js"></script>
+<script src="js/admin/app.js"></script>
+</body>
+</html>

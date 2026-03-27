@@ -1,0 +1,38 @@
+{
+  "name": "candy-studio",
+  "version": "1.0.0",
+  "description": "Candy Studio - AI Creative Suite",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "com.candy.studio",
+    "productName": "Candy Studio",
+    "win": {
+      "target": "portable",
+      "icon": null,
+      "signAndEditExecutable": false,
+      "signingHashAlgorithms": null
+    },
+    "portable": {
+      "artifactName": "CandyStudio.exe"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "admin.html",
+      "js/app.js",
+      "js/modules/**/*",
+      "js/admin/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}
