@@ -1,7 +1,7 @@
 {
   "name": "candy-studio-backend",
   "version": "1.0.0",
-  "description": "Candy Studio Backend - AI Image Generation Platform",
+  "description": "Backend for an open-source Banana Pro and Banana 2 image/video resale website",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

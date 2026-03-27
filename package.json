@@ -1,7 +1,7 @@
 {
   "name": "candy-studio",
   "version": "1.0.0",
-  "description": "Candy Studio - AI Creative Suite",
+  "description": "Open-source Banana Pro and Banana 2 image/video resale website for independent operators",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
