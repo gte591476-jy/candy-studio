@@ -2,6 +2,12 @@
 
 [English README](./README.en.md)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933)
+![MySQL](https://img.shields.io/badge/mysql-8%2B-4479A1)
+![Status](https://img.shields.io/badge/status-active%20development-7c3aed)
+![Use Case](https://img.shields.io/badge/use%20case-AI%20resale%20website-0ea5e9)
+
 > 面向个人站长与小团队的 Banana Pro / Banana 2 AI 图片与视频分发站  
 > 从上游中转拿货，到下游网站零售，一套可直接落地的差价运营底座
 
@@ -14,6 +20,22 @@ Candy Studio 是一个面向个人站长和小团队的开源 AI 图片与视频
 - 向自己的客户提供图片和视频生成服务
 - 管理账户、余额、会员、充值和后台配置
 - 通过定价差、套餐差和会员策略赚取利润
+
+## 项目预览
+
+### 前台工作台
+
+![前台工作台](./docs/jt/1.png)
+
+### 后台管理
+
+![后台概览](./docs/jt/2.png)
+![用户管理](./docs/jt/3.png)
+![模型定价](./docs/jt/4.png)
+![API Key 管理](./docs/jt/5.png)
+![支付配置](./docs/jt/6.png)
+![会员配置](./docs/jt/7.png)
+![调用记录](./docs/jt/8.png)
 
 ## 项目定位
 

@@ -1,0 +1,72 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#eef4ef"/>
+  <rect x="34" y="34" width="1532" height="832" rx="28" fill="#ffffff"/>
+  <rect x="34" y="34" width="1532" height="832" rx="28" stroke="#d8e3da"/>
+  <rect x="64" y="64" width="250" height="772" rx="22" fill="#f8fbf8"/>
+  <rect x="344" y="64" width="420" height="772" rx="22" fill="#ffffff"/>
+  <rect x="794" y="64" width="522" height="772" rx="22" fill="#f7faf8"/>
+  <rect x="1346" y="64" width="190" height="772" rx="22" fill="#fbfdfb"/>
+  <circle cx="108" cy="108" r="22" fill="#22c55e"/>
+  <text x="146" y="116" fill="#152317" font-family="Arial, sans-serif" font-size="34" font-weight="700">Candy Studio</text>
+  <text x="146" y="148" fill="#6d7f70" font-family="Arial, sans-serif" font-size="18">Banana Pro / Banana 2 AI resale website</text>
+  <rect x="86" y="190" width="206" height="52" rx="14" fill="#e7f8eb"/>
+  <text x="116" y="223" fill="#17924d" font-family="Arial, sans-serif" font-size="22" font-weight="700">Image Generation</text>
+  <rect x="86" y="254" width="206" height="52" rx="14" fill="#ffffff" stroke="#d9e7dc"/>
+  <text x="136" y="287" fill="#607264" font-family="Arial, sans-serif" font-size="22" font-weight="700">Video Generation</text>
+  <rect x="86" y="346" width="206" height="118" rx="18" fill="#f3faf4" stroke="#d9e7dc"/>
+  <text x="108" y="388" fill="#7b8e7d" font-family="Arial, sans-serif" font-size="18">Balance</text>
+  <text x="108" y="438" fill="#16a34a" font-family="Arial, sans-serif" font-size="40" font-weight="700">1280</text>
+  <text x="108" y="472" fill="#7b8e7d" font-family="Arial, sans-serif" font-size="18">points</text>
+  <text x="380" y="120" fill="#152317" font-family="Arial, sans-serif" font-size="28" font-weight="700">Model Selection</text>
+  <rect x="380" y="152" width="348" height="98" rx="18" fill="#f2fbf4" stroke="#cfe6d5"/>
+  <text x="406" y="196" fill="#15934d" font-family="Arial, sans-serif" font-size="28" font-weight="700">Nano Banana 2</text>
+  <text x="406" y="228" fill="#648067" font-family="Arial, sans-serif" font-size="18">High-conversion image generation model for retail websites</text>
+  <rect x="380" y="286" width="168" height="48" rx="14" fill="#22c55e"/>
+  <text x="426" y="317" fill="#ffffff" font-family="Arial, sans-serif" font-size="22" font-weight="700">1:1</text>
+  <rect x="560" y="286" width="168" height="48" rx="14" fill="#ffffff" stroke="#d7e4d9"/>
+  <text x="606" y="317" fill="#647667" font-family="Arial, sans-serif" font-size="22" font-weight="700">16:9</text>
+  <rect x="380" y="364" width="348" height="170" rx="18" fill="#ffffff" stroke="#d7e4d9"/>
+  <text x="406" y="404" fill="#7b8e7d" font-family="Arial, sans-serif" font-size="18">Prompt</text>
+  <text x="406" y="446" fill="#1b2a1d" font-family="Arial, sans-serif" font-size="24">Luxury portrait, cinematic lighting,</text>
+  <text x="406" y="480" fill="#1b2a1d" font-family="Arial, sans-serif" font-size="24">clean e-commerce aesthetic,</text>
+  <text x="406" y="514" fill="#1b2a1d" font-family="Arial, sans-serif" font-size="24">high-detail face, premium style</text>
+  <rect x="380" y="566" width="348" height="58" rx="16" fill="#16a34a"/>
+  <text x="486" y="603" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="700">Generate</text>
+  <text x="830" y="120" fill="#152317" font-family="Arial, sans-serif" font-size="28" font-weight="700">Results</text>
+  <rect x="830" y="152" width="220" height="250" rx="20" fill="url(#grad1)"/>
+  <rect x="1070" y="152" width="220" height="250" rx="20" fill="url(#grad2)"/>
+  <rect x="830" y="422" width="220" height="250" rx="20" fill="url(#grad3)"/>
+  <rect x="1070" y="422" width="220" height="250" rx="20" fill="url(#grad4)"/>
+  <rect x="1374" y="120" width="136" height="110" rx="18" fill="#f3faf4" stroke="#d7e4d9"/>
+  <text x="1400" y="162" fill="#7a8b7d" font-family="Arial, sans-serif" font-size="18">Today</text>
+  <text x="1400" y="208" fill="#16924c" font-family="Arial, sans-serif" font-size="34" font-weight="700">86</text>
+  <rect x="1374" y="252" width="136" height="110" rx="18" fill="#fdf8ef" stroke="#eadfc8"/>
+  <text x="1400" y="294" fill="#8e7b57" font-family="Arial, sans-serif" font-size="18">Revenue</text>
+  <text x="1400" y="340" fill="#d97706" font-family="Arial, sans-serif" font-size="34" font-weight="700">$428</text>
+  <rect x="1374" y="384" width="136" height="280" rx="18" fill="#ffffff" stroke="#d7e4d9"/>
+  <text x="1400" y="426" fill="#152317" font-family="Arial, sans-serif" font-size="22" font-weight="700">Queue</text>
+  <rect x="1394" y="450" width="96" height="54" rx="12" fill="#e7f8eb"/>
+  <text x="1412" y="484" fill="#16924c" font-family="Arial, sans-serif" font-size="18" font-weight="700">Processing</text>
+  <rect x="1394" y="520" width="96" height="54" rx="12" fill="#fff7e8"/>
+  <text x="1424" y="554" fill="#d97706" font-family="Arial, sans-serif" font-size="18" font-weight="700">Waiting</text>
+  <rect x="1394" y="590" width="96" height="54" rx="12" fill="#eef2ff"/>
+  <text x="1433" y="624" fill="#4f46e5" font-family="Arial, sans-serif" font-size="18" font-weight="700">Done</text>
+  <defs>
+    <linearGradient id="grad1" x1="830" y1="152" x2="1050" y2="402" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c7f9cc"/>
+      <stop offset="1" stop-color="#57cc99"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="1070" y1="152" x2="1290" y2="402" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fde68a"/>
+      <stop offset="1" stop-color="#fb7185"/>
+    </linearGradient>
+    <linearGradient id="grad3" x1="830" y1="422" x2="1050" y2="672" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#bfdbfe"/>
+      <stop offset="1" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="grad4" x1="1070" y1="422" x2="1290" y2="672" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ddd6fe"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -2,6 +2,12 @@
 
 [简体中文说明](./README.md)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933)
+![MySQL](https://img.shields.io/badge/mysql-8%2B-4479A1)
+![Status](https://img.shields.io/badge/status-active%20development-7c3aed)
+![Use Case](https://img.shields.io/badge/use%20case-AI%20resale%20website-0ea5e9)
+
 Candy Studio is an open-source AI image and video generation website built for independent operators.
 It is designed for teams or individuals who source generation capacity from upstream relay APIs and redistribute that capability to end users through their own branded website.
 
@@ -11,6 +17,22 @@ In practical terms, this project is well suited for running a small commercial B
 - resell image and video generation to your own customers
 - manage accounts, balances, memberships, and recharge flow
 - earn margin through pricing, packaging, and downstream distribution
+
+## Preview
+
+### Frontend Workspace
+
+![Frontend Workspace](./docs/jt/1.png)
+
+### Admin Dashboard
+
+![Admin Overview](./docs/jt/2.png)
+![User Management](./docs/jt/3.png)
+![Model Pricing](./docs/jt/4.png)
+![API Key Management](./docs/jt/5.png)
+![Payment Settings](./docs/jt/6.png)
+![Membership Settings](./docs/jt/7.png)
+![Call Records](./docs/jt/8.png)
 
 ## Project Positioning
 
