@@ -1,59 +1,61 @@
 # Candy Studio
 
-[简体中文说明](./README.zh-CN.md)
+[English README](./README.en.md)
 
-Candy Studio is an open-source AI image and video generation website built for independent operators.
-It is designed for teams or individuals who source generation capacity from upstream relay APIs and redistribute that capability to end users through their own branded website.
+Candy Studio 是一个面向个人站长和小团队的开源 AI 图片与视频生成网站。
+它适合这样一种实际运营模式：从上游中转 API 或模型供应渠道拿货，再通过你自己的品牌网站把生成能力分发给终端用户。
 
-In practical terms, this project is well suited for running a small commercial Banana Pro / Banana 2 style generation site:
+换句话说，这个项目很适合用来搭建一个个人可运转的 Banana Pro / Banana 2 模型售卖与出图网站：
 
-- connect to an upstream model relay or supply channel
-- resell image and video generation to your own customers
-- manage accounts, balances, memberships, and recharge flow
-- earn margin through pricing, packaging, and downstream distribution
+- 接入上游中转 API 或供货渠道
+- 向自己的客户提供图片和视频生成服务
+- 管理账户、余额、会员、充值和后台配置
+- 通过定价差、套餐差和会员策略赚取利润
 
-## Project Positioning
+## 项目定位
 
-Candy Studio is not just a demo UI. It is a usable self-operated distribution system for AI creative services.
-It focuses on the business flow of "procure upstream capacity -> package it into your own website -> deliver generation services to customers -> keep the price spread as margin".
+Candy Studio 不是一个只适合演示的前端页面，而是一套可以直接拿来改造和运营的 AI 创作分发系统。
+它关注的是一条完整的业务链路：
 
-This repository is especially suitable for:
+`接入上游能力 -> 封装成自己的站点 -> 给客户提供生成服务 -> 用价格差完成变现`
 
-- personal or small-team AI tool operations
-- Banana Pro, Banana 2, and related image generation resale scenarios
-- AI image and short video websites built on top of relay APIs
-- private deployment for niche creative communities or client groups
+这个仓库尤其适合：
 
-## Core Capabilities
+- 个人或小团队 AI 工具运营
+- Banana Pro、Banana 2 及相关模型分发场景
+- 基于中转 API 的图片站、视频站、出图站
+- 私有部署给社群、客户群体或垂直创作者群体
 
-- User registration and login
-- JWT-based authentication
-- Admin dashboard
-- Image and video generation workflow
-- Points, recharge, and membership system
-- MySQL-backed data persistence
-- API key rotation and upstream base URL configuration
+## 核心能力
 
-## Business Use Case
+- 用户注册与登录
+- 基于 JWT 的鉴权体系
+- 后台管理面板
+- 图片与视频生成工作流
+- 积分、充值、会员体系
+- MySQL 数据存储
+- 上游 API Key 轮换与基础地址配置
 
-The typical operating model behind this project looks like this:
+## 商业使用方式
 
-1. You obtain upstream generation capability from a relay service or API supplier.
-2. You configure your own pricing, model costs, and membership packages.
-3. Your users generate Banana-style images and videos on your website.
-4. The platform records usage, deducts points, and supports recharge.
-5. Your profit comes from the spread between upstream procurement cost and downstream retail pricing.
+这套项目的典型商业模式是：
 
-That makes Candy Studio a practical starting point for operators who want to launch a lightweight AI generation business without building the whole account, billing, and delivery system from scratch.
+1. 你从上游中转站或 API 供应商获取生成能力。
+2. 你在后台配置自己的模型成本、零售价和会员套餐。
+3. 用户在你的网站上生成 Banana 风格图片或视频。
+4. 平台自动记录调用、扣除积分，并支持充值。
+5. 你的利润来自上游拿货成本与下游零售价格之间的差价。
 
-## Tech Stack
+所以它特别适合想快速启动轻量 AI 生成业务的人，不需要从零再去搭建账户系统、后台、充值和调用分发系统。
 
-- Frontend: HTML, Tailwind CDN, Vanilla JavaScript
-- Backend: Node.js, Express
-- Database: MySQL 8+
-- Authentication: JWT + bcrypt
+## 技术栈
 
-## Repository Layout
+- 前端：HTML、Tailwind CDN、Vanilla JavaScript
+- 后端：Node.js、Express
+- 数据库：MySQL 8+
+- 鉴权：JWT + bcrypt
+
+## 目录结构
 
 ```text
 .
@@ -70,21 +72,21 @@ That makes Candy Studio a practical starting point for operators who want to lau
 `-- README.md
 ```
 
-## Quick Start
+## 快速开始
 
-### 1. Create the database
+### 1. 创建数据库
 
 ```sql
 CREATE DATABASE candy_studio CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 2. Create your local env file
+### 2. 创建本地环境文件
 
 ```powershell
 Copy-Item backend\.env.example backend\.env
 ```
 
-Fill in your own values in `backend/.env`, especially:
+然后在 `backend/.env` 中填写你自己的真实配置，至少包括：
 
 - `DATABASE_URL`
 - `JWT_SECRET`
@@ -95,59 +97,59 @@ Fill in your own values in `backend/.env`, especially:
 - `ADMIN_PATH`
 - `ADMIN_ACCESS_CODE`
 
-### 3. Install backend dependencies
+### 3. 安装后端依赖
 
 ```powershell
 cd backend
 npm install
 ```
 
-### 4. Start the website
+### 4. 启动网站
 
 ```powershell
 npm start
 ```
 
-## Local URLs
+## 本地访问地址
 
-- Frontend: `http://localhost:3001/`
-- Health check: `http://localhost:3001/api/health`
-- Admin: `http://localhost:3001/{ADMIN_PATH}?code={ADMIN_ACCESS_CODE}`
+- 前台：`http://localhost:3001/`
+- 健康检查：`http://localhost:3001/api/health`
+- 后台：`http://localhost:3001/{ADMIN_PATH}?code={ADMIN_ACCESS_CODE}`
 
-## Open Source Notes
+## 开源说明
 
-This repository is open source so that independent operators can deploy, customize, and extend their own AI generation website more quickly.
+这个仓库开源的目的，是让独立运营者能够更快搭建、改造和部署自己的 AI 生成网站。
 
-What is included:
+仓库包含：
 
-- the full website codebase
-- account system and admin flow
-- pricing, points, and membership logic
-- MySQL-backed runtime
-- a deployable baseline for AI generation resale scenarios
+- 完整的网站代码
+- 账户体系与后台流程
+- 定价、积分、会员逻辑
+- 基于 MySQL 的运行时能力
+- 可直接二次开发的 AI 分发业务底座
 
-What is not included:
+仓库不包含：
 
-- your private upstream API keys
-- your production database
-- your local admin credentials
-- any guarantee of profitability, compliance, or upstream availability
+- 你的私有上游 API Key
+- 你的生产数据库
+- 你的本地后台密码
+- 任何关于盈利、合规或上游稳定性的承诺
 
-Before deploying publicly, you should review and customize:
+在公开部署前，建议你自行评估和修改：
 
-- your pricing strategy
-- your upstream API terms
-- your moderation and content policy
-- your payment flow
-- your legal and compliance requirements for your region
+- 你的定价策略
+- 上游 API 的服务条款
+- 内容审核与风控策略
+- 支付流程
+- 你所在地区的法律与合规要求
 
-## Deployment Notes
+## 部署说明
 
-- Database tables are initialized automatically on startup.
-- If the admin account does not exist, it will be created from the values in `.env`.
-- The committed `.env` values are placeholders only. Replace them with your own local secrets before running.
-- `.env` and log files are ignored and should never be committed.
-- The repository also contains an optional Electron wrapper in the root for desktop packaging, but it is not required for website deployment.
+- 数据表会在启动时自动初始化。
+- 如果管理员账户不存在，系统会根据 `.env` 里的配置自动创建。
+- 仓库里提交的 `.env` 内容是占位值，运行前请替换成你自己的真实配置。
+- `.env` 和日志文件已经被忽略，不应提交到公开仓库。
+- 根目录还保留了一个可选的 Electron 包装层，但网站部署本身并不依赖它。
 
 ## License
 
